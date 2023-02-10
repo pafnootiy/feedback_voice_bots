@@ -1,0 +1,102 @@
+{
+  "id": "9689a866-1aa9-4c6a-bbbe-143d7ea9ca86",
+  "name": "ak_devman",
+  "auto": true,
+  "condition": "",
+  "conditionalFollowupEvents": [],
+  "conditionalResponses": [],
+  "context": [],
+  "contexts": [],
+  "endInteraction": true,
+  "events": [],
+  "fallbackIntent": false,
+  "liveAgentHandoff": false,
+  "parentId": null,
+  "followUpIntents": [],
+  "priority": 500000,
+  "responses": [
+    {
+      "action": "",
+      "affectedContexts": [],
+      "parameters": [],
+      "defaultResponsePlatforms": {},
+      "messages": [
+        {
+          "type": "message",
+          "condition": "",
+          "speech": [
+            "Привет, человек",
+            "Убить всех человеков,а да ! Привет"
+          ]
+        }
+      ],
+      "resetContexts": false
+    }
+  ],
+  "rootParentId": null,
+  "templates": [],
+  "userSays": [
+    {
+      "isTemplate": false,
+      "data": [
+        {
+          "text": "Добрый день",
+          "userDefined": false
+        }
+      ],
+      "count": 0,
+      "id": "f67ec1b6-2293-422c-ba9f-e130376198a0",
+      "updated": null
+    },
+    {
+      "isTemplate": false,
+      "data": [
+        {
+          "text": "привет",
+          "userDefined": false
+        }
+      ],
+      "count": 0,
+      "id": "3f18e572-99c3-4f46-8c88-5e81e159bdf1",
+      "updated": null
+    },
+    {
+      "isTemplate": false,
+      "data": [
+        {
+          "text": "хай",
+          "userDefined": false
+        }
+      ],
+      "count": 1,
+      "id": "6772d679-37bd-4f5d-9159-716704971e9f",
+      "updated": null
+    },
+    {
+      "isTemplate": false,
+      "data": [
+        {
+          "text": "халлоу",
+          "userDefined": false
+        }
+      ],
+      "count": 0,
+      "id": "9faf5c0c-fa90-444a-bfe1-e53f844ee823",
+      "updated": null
+    },
+    {
+      "isTemplate": false,
+      "data": [
+        {
+          "text": "здорово",
+          "userDefined": false
+        }
+      ],
+      "count": 0,
+      "id": "02fce358-8724-4415-a95a-f0c778a5c089",
+      "updated": null
+    }
+  ],
+  "webhookForSlotFilling": false,
+  "webhookUsed": false
+}
