@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 from google.cloud import dialogflow
+ 
 
 
 with open ("training_phrases.json","r",encoding="utf-8") as file:
@@ -17,7 +18,7 @@ display_name = "devman_training_phrases"
 
 
 
-def create_intent(project_id, display_name, training_phrases_parts ):
+def create_intent( project_id, display_name, training_phrases_parts ):
     """Create an intent of the given intent type."""
      
 
@@ -48,7 +49,6 @@ def create_intent(project_id, display_name, training_phrases_parts ):
         
     print("Intent created: {}".format(response))
 
-create_intent(project_id, display_name, phrases)
-
-
+create_intent( project_id, display_name, phrases)
+ 
  

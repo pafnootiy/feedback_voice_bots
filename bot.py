@@ -6,7 +6,8 @@ from telegram.ext import Updater, MessageHandler, Filters
 
 from google.cloud import storage
 
- 
+from intents import detect_intent_texts
+
 
 import logging
 
@@ -32,39 +33,19 @@ def start(update: Update, context: CallbackContext) -> None:
         reply_markup=ForceReply(selective=True),
     )
 
-
  
-def detect_intent_texts(update: Update, context: CallbackContext):
-
+def bot_send_message(update: Update, context: CallbackContext):
+ 
     project_id = os.getenv("PROGECT_ID")
     language_code = os.getenv("LANGUAGE_CODE")
     session_id = os.getenv("SESSION_ID")  
     user_massage =  update.message['text']
-
-    session_client = dialogflow.SessionsClient()
-    session = session_client.session_path(project_id, session_id)
-    text_input = dialogflow.TextInput(text=user_massage,
-                                      language_code=language_code)
-    query_input = dialogflow.QueryInput(text=text_input)
-    response = session_client.detect_intent(
-        request={"session": session, "query_input": query_input}
-    )
-    
-    print("=" * 20)
-    print("Query text: {}".format(response.query_result.query_text))
-
- 
-    print("Fulfillment text: {}\n".format(
-        response.query_result.fulfillment_text))
-
-    update.message.reply_text(response.query_result.fulfillment_text)
-
-  
+    update.message.reply_text(detect_intent_texts(user_massage, project_id, session_id, language_code))
  
 updater = Updater(tg_token)
 dispatcher = updater.dispatcher
 dispatcher.add_handler(CommandHandler("start", start))
-dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, detect_intent_texts))
+dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, bot_send_message))
 updater.start_polling()
 
 updater.idle()

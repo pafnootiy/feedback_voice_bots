@@ -7,20 +7,19 @@ import os
 from dotenv import load_dotenv
 from google.cloud import dialogflow
 load_dotenv()
+ 
 
 tg_token = os.getenv("TG_API_TOKEN")
 project_id = os.getenv("PROGECT_ID")
 language_code = os.getenv("LANGUAGE_CODE")
 session_id = os.getenv("SESSION_ID")
- 
- 
 
-def detect_intent_texts(project_id, session_id, language_code):
-    """Returns the result of detect intent with texts as inputs.
 
-    Using the same `session_id` between requests allows continuation
-    of the conversation."""
-    from google.cloud import dialogflow
+ 
+text=" "
+
+def detect_intent_texts(text, project_id, session_id, language_code):
+ 
 
     session_client = dialogflow.SessionsClient()
 
@@ -45,8 +44,9 @@ def detect_intent_texts(project_id, session_id, language_code):
         )
     )
     print("Fulfillment text: {}\n".format(response.query_result.fulfillment_text))
+    return response.query_result.fulfillment_text
 
-detect_intent_texts(project_id, session_id,language_code)
+detect_intent_texts(text, project_id, session_id,language_code)
 
 
 
