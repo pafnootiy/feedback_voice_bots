@@ -28,22 +28,35 @@ def detect_intent_texts(text, project_id, session_id, language_code):
 
      
     text_input = dialogflow.TextInput(text=text, language_code=language_code)
-
     query_input = dialogflow.QueryInput(text=text_input)
-
     response = session_client.detect_intent(
         request={"session": session, "query_input": query_input}
     )
 
-    print("=" * 20)
-    print("Query text: {}".format(response.query_result.query_text))
-    print(
-        "Detected intent: {} (confidence: {})\n".format(
-            response.query_result.intent.display_name,
-            response.query_result.intent_detection_confidence,
+    
+
+    if response.query_result.intent.is_fallback:
+        print(response.query_result.intent.is_fallback)
+        ask_support="Я не понимаю о чем ты , зову человеков!"
+        text_input = dialogflow.TextInput(text=ask_support, language_code=language_code)
+        query_input = dialogflow.QueryInput(text=text_input)
+        response = session_client.detect_intent(
+        request={"session": session, "query_input": query_input}
         )
-    )
-    print("Fulfillment text: {}\n".format(response.query_result.fulfillment_text))
-    return response.query_result.fulfillment_text
+ 
+ 
+        return response.query_result.query_text
+ 
+    else:
+        print("=" * 20)
+        print("Query text: {}".format(response.query_result.query_text))
+        print(
+            "Detected intent: {} (confidence: {})\n".format(
+                response.query_result.intent.display_name,
+                response.query_result.intent_detection_confidence,
+            )
+        )
+        print("Fulfillment text: {}\n".format(response.query_result.fulfillment_text))
+        return response.query_result.fulfillment_text
 
 detect_intent_texts(text, project_id, session_id,language_code)
