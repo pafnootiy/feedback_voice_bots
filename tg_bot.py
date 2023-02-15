@@ -12,7 +12,6 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, \
 
 from intents import detect_intent_texts
 
-load_dotenv()
 
 
 class TelegramLogsHandler(logging.Handler):
