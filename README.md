@@ -30,7 +30,6 @@ pip install -r requirements.txt
 
 * TG_API_TOKEN=токен телеграмм бота  
 * PROGECT_ID= ID проекта из json файла с ключами.  
-* LANGUAGE_CODE=Russian — ru 
 * GOOGLE_APPLICATION_CREDENTIALS - путь к json файлу с ключами для DialogFlow. 
 * DIALOG_FLOW_TOKEN = токен для DialogFlow 
 * TG_CHAT_ID= чат id в телеграмме. 
@@ -40,7 +39,6 @@ pip install -r requirements.txt
 
 * TG_API_TOKEN=5969555759:AAFTmoRUfTq_ZHPPb0Ra0ulY3RtLvTwJ1mg
 * PROGECT_ID=dvmn-project-gwll
-* LANGUAGE_CODE=Russian — ru
 * GOOGLE_APPLICATION_CREDENTIALS='C:\Users\Alex K\AppData\Roaming\gcloud\application_default_credentials.json'
 * DIALOG_FLOW_TOKEN = AIzaSyBXHFF6JgELqzQLFBVmXCCeixgMp31deKY
 * TG_CHAT_ID=230938172
