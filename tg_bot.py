@@ -11,19 +11,10 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, \
     CallbackContext
 
 from intents import detect_intent_texts
+from log_handlers import LogsHandler
 
 
-
-class TelegramLogsHandler(logging.Handler):
-
-    def __init__(self, tg_chat_id, bot):
-        super().__init__()
-        self.chat_id = tg_chat_id
-        self.bot = bot
-
-    def emit(self, record):
-        log_entry = self.format(record)
-        self.bot.send_message(text=log_entry, chat_id=self.chat_id)
+logger = logging.getLogger(__file__)
 
 
 def start(update: Update, context: CallbackContext) -> None:
@@ -48,16 +39,13 @@ def bot_send_message(update: Update, context: CallbackContext):
 def main():
     load_dotenv()
     tg_token = os.getenv("TG_API_TOKEN")
-    bot = telegram.Bot(token=tg_token)
-    
-    session_id = os.getenv("SESSION_ID")
 
-    logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
-                        level=logging.INFO,
-                        filename='bot.log')
-    logger = logging.getLogger('Logger')
-    logger.setLevel(logging.WARNING)
-    logger.addHandler(TelegramLogsHandler(session_id, bot))
+    logging.basicConfig(
+         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        level=logging.INFO
+    )
+    logs_handler = LogsHandler(level=logging.INFO)
+    logger.addHandler(logs_handler)
     logger.warning('Бот запущен!')
     
     try:
@@ -67,7 +55,6 @@ def main():
         dispatcher.add_handler(
             MessageHandler(Filters.text & ~Filters.command, bot_send_message))
         updater.start_polling()
-
         updater.idle()
     except requests.exceptions.ConnectionError:
 

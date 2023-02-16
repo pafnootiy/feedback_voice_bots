@@ -1,10 +1,16 @@
 import os
 import random 
 import vk_api as vk
+import logging
+
 
 from dotenv import load_dotenv
 from vk_api.longpoll import VkLongPoll, VkEventType
 from intents import detect_intent_texts
+from log_handlers import LogsHandler
+
+logger = logging.getLogger(__file__)
+
 
 
 def vk_bot_send_message(event, vk_api):
@@ -22,6 +28,14 @@ def vk_bot_send_message(event, vk_api):
 def main():
     
     load_dotenv()
+
+    logging.basicConfig(
+         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        level=logging.INFO
+    )
+    logs_handler = LogsHandler(level=logging.INFO)
+    logger.addHandler(logs_handler)
+    
     vk_token = os.getenv("VK_TOKEN")
     vk_session = vk.VkApi(token=vk_token)
     vk_api = vk_session.get_api()
