@@ -1,8 +1,9 @@
 import os
 import logging
-import telegram
 import sys
 import requests
+
+from functools import partial
 
 
 from dotenv import load_dotenv
@@ -18,7 +19,6 @@ logger = logging.getLogger(__file__)
 
 
 def start(update: Update, context: CallbackContext) -> None:
-    """Send a message when the command /start is issued."""
     user = update.effective_user
     update.message.reply_markdown_v2(
         fr'Привет {user.mention_markdown_v2()}\!',
@@ -26,34 +26,39 @@ def start(update: Update, context: CallbackContext) -> None:
     )
 
 
-def bot_send_message(update: Update, context: CallbackContext):
-    project_id = os.getenv("PROGECT_ID")
-    language_code = os.getenv("LANGUAGE_CODE")
-    session_id = os.getenv("SESSION_ID")
-    user_massage = update.message['text']
+def bot_send_message(update: Update, context: CallbackContext, project_id, language_code, session_id):
     update.message.reply_text(
-        detect_intent_texts(user_massage, project_id, session_id,
+        detect_intent_texts(update.message['text'], project_id, session_id,
                             language_code))
 
 
 def main():
     load_dotenv()
     tg_token = os.getenv("TG_API_TOKEN")
-
     logging.basicConfig(
-         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
         level=logging.INFO
     )
     logs_handler = LogsHandler(level=logging.INFO)
     logger.addHandler(logs_handler)
     logger.warning('Бот запущен!')
-    
+
     try:
         updater = Updater(tg_token)
         dispatcher = updater.dispatcher
         dispatcher.add_handler(CommandHandler("start", start))
         dispatcher.add_handler(
-            MessageHandler(Filters.text & ~Filters.command, bot_send_message))
+            MessageHandler(
+                Filters.text & ~Filters.command,
+                partial(
+                    bot_send_message,
+                    project_id=os.getenv("PROGECT_ID"),
+                    language_code=os.getenv("LANGUAGE_CODE"),
+                    session_id=os.getenv("SESSION_ID"),
+                )
+            )
+        )
+
         updater.start_polling()
         updater.idle()
     except requests.exceptions.ConnectionError:
@@ -61,5 +66,6 @@ def main():
         print("Ошибка соединения", file=sys.stderr)
         logger.error('Ошибка соединения')
 
-if __name__ == "__main__" :
+
+if __name__ == "__main__":
     main()
