@@ -2,7 +2,8 @@
 ## Бот-помощник для ответа на самые часто задаваемые вопросы
 
 ### Пример работы бота 
-![bandicam 2023-02-16 06-20-38-470 (1)](https://user-images.githubusercontent.com/66752812/219253008-6d21b22d-5280-48a8-a693-1cccd8f0517a.gif)
+ 
+![bandicam 2023-03-16 19-44-27-905 (1)](https://user-images.githubusercontent.com/66752812/225674884-e502f299-9ef0-450b-93c6-f450a7d70fee.gif)
 
 Для тестирования Вы можете использовать ботов в TG: https://t.me/fd_dev_bot или в VK : https://vk.com/event41445255
 
