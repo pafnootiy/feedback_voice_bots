@@ -30,8 +30,8 @@ def create_intent(phrases, project_id):
 
 def main():
     load_dotenv()
-    path_to_phrases = os.getenv('PATH_TO_PHRASES')
-    with open(path_to_phrases + "training_phrases.json", "r", encoding="utf-8") as file:
+    file_with_phrases = os.getenv('PATH_TO_FILE')
+    with open(file_with_phrases, "r", encoding="utf-8") as file:
         phrases_json = file.read()
     phrases = json.loads(phrases_json)
     project_id = os.getenv("PROGECT_ID")
