@@ -34,7 +34,7 @@ def main():
 
     project_id = os.getenv("PROGECT_ID")
 
-    session_id = os.getenv("SESSION_ID")
+    session_id = os.getenv("VK_SESSION_ID")
 
     vk_token = os.getenv("VK_TOKEN")
     vk_session = vk.VkApi(token=vk_token)

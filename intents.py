@@ -1,6 +1,3 @@
-# import os
-
-# from dotenv import load_dotenv
 from google.cloud import dialogflow
 
 
@@ -15,8 +12,5 @@ def detect_intent_texts(text, project_id, session_id):
     response = session_client.detect_intent(
         request={"session": session, "query_input": query_input}
     )
-
-    # print(response.query_result.intent.is_fallback)
-
 
     return response
