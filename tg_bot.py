@@ -59,7 +59,7 @@ def main():
                 partial(
                     bot_send_message,
                     project_id=os.getenv("PROGECT_ID"),
-                    session_id=os.getenv("TG_SESSION_ID"),
+                    session_id=os.getenv("tg-{TG_SESSION_ID}"),
                 )
             )
         )
