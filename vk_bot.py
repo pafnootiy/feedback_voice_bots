@@ -42,8 +42,6 @@ def main():
     while True:
         try:
             for event in longpoll.listen():
-                # session_id = f"vk_{event.user_id}"
-                # print(session_id)
                 if event.type == VkEventType.MESSAGE_NEW and event.to_me:
                     vk_bot_send_message(event, vk_api, project_id,
                                         )
