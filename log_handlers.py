@@ -14,5 +14,3 @@ class LogsHandler(logging.Handler):
     def emit(self, record):
         log_entry = self.format(record)
         self.bot.send_message(text=log_entry, chat_id=self.chat_id)
-
- 

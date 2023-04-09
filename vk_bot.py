@@ -15,7 +15,6 @@ logger = logging.getLogger(__file__)
 def vk_bot_send_message(event, vk_api, project_id, session_id):
     message = detect_intent_texts(
         event.text, project_id, session_id)
-
     if not message.query_result.intent.is_fallback:
         vk_api.messages.send(
             user_id=event.user_id,
@@ -34,7 +33,7 @@ def main():
 
     project_id = os.getenv("PROGECT_ID")
 
-    session_id = os.getenv("vk-{VK_SESSION_ID}")
+    session_id = "vk_{event.user_id}"
 
     vk_token = os.getenv("VK_TOKEN")
     vk_session = vk.VkApi(token=vk_token)
