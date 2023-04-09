@@ -12,7 +12,8 @@ from log_handlers import LogsHandler
 logger = logging.getLogger(__file__)
 
 
-def vk_bot_send_message(event, vk_api, project_id, session_id):
+def vk_bot_send_message(event, vk_api, project_id):
+    session_id = f"vk_{event.user_id}"
     message = detect_intent_texts(
         event.text, project_id, session_id)
     if not message.query_result.intent.is_fallback:
@@ -32,18 +33,19 @@ def main():
     logger.addHandler(logs_handler)
 
     project_id = os.getenv("PROGECT_ID")
-
-    session_id = "vk_{event.user_id}"
-
+    
     vk_token = os.getenv("VK_TOKEN")
     vk_session = vk.VkApi(token=vk_token)
     vk_api = vk_session.get_api()
     longpoll = VkLongPoll(vk_session)
+ 
     while True:
         try:
             for event in longpoll.listen():
+                # session_id = f"vk_{event.user_id}"
+                # print(session_id)
                 if event.type == VkEventType.MESSAGE_NEW and event.to_me:
-                    vk_bot_send_message(event, vk_api, project_id, session_id,
+                    vk_bot_send_message(event, vk_api, project_id,
                                         )
         except ApiError:
             pass

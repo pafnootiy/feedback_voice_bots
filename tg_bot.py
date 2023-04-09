@@ -29,14 +29,13 @@ def start(update: Update, context: CallbackContext) -> None:
 def bot_send_message(update: Update,
                      context: CallbackContext,
                      project_id,
-                     session_id
                      ):
+    session_id = f"tg_{update.effective_chat.id}"
 
     user_text = update.message.text
     bot_response = detect_intent_texts(user_text, project_id, session_id)
     context.bot.send_message(chat_id=update.effective_chat.id,
                              text=bot_response.query_result.fulfillment_text)
-
 
     update.message.reply_text(
         detect_intent_texts(update.message['text'], project_id, session_id,
@@ -64,7 +63,6 @@ def main():
                 partial(
                     bot_send_message,
                     project_id=os.getenv("PROGECT_ID"),
-                    session_id="tg_{update.effective_chat.id}",
                 )
             )
         )
